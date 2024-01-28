@@ -4,8 +4,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'ls'
-                sh 'echo building...'
+                sh'''
+
+                    docker login --password $TOKEN
+                    '''
+                    sh 'ls'
+                    sh 'echo building...'
+            }
+        }
+    }
+}
+stages {
+        stage('push to ecr') {
+            steps {
+                sh'''
+                docker tag
+                docker push
+
             }
         }
     }
