@@ -1,27 +1,35 @@
 pipeline {
     agent any
-
+    environment {
+        DU_NAME = "romkatch"
+    }
     stages {
         stage('Build') {
             steps {
-                sh'''
+                sh 'ls'
+                sh 'echo building....'
+                withCredentials([usernamePassword(credentialsId: 'docker_user_Cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+                {
+                    sh '''
+                       docker login -u $USERNAME -p $PASSWORD
+                       docker build -t $DU_NAME/roberta-cicd:0.0.$BUILD_NUMBER .
+                       docker push $DU_NAME/roberta-cicd:0.0.$BUILD_NUMBER
+                       '''
+                }
 
-                    docker login --password $TOKEN
-                    '''
-                    sh 'ls'
-                    sh 'echo building...'
+            }
+            post {
+                always{
+                    sh 'docker image prune -a --force --filter "until=24h"'
+                }
             }
         }
-    }
-}
-stages {
-        stage('push to ecr') {
+        stage('Trigger Deploy') {
             steps {
-                sh'''
-                docker tag
-                docker push
-
+                build job: 'roberta-deploy', wait: false, parameters: [
+                    string(name: 'ROBERTA_IMAGE_URL', value: "$DU_NAME/roberta-cicd:0.0.$BUILD_NUMBER")
+                    ]
+                }
             }
-        }
     }
 }
