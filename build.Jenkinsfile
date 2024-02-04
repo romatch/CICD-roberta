@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'ls'
-                sh 'echo building....'
+                sh 'echo building.....'
                 withCredentials([usernamePassword(credentialsId: 'docker_user_Cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
                 {
                     sh '''
