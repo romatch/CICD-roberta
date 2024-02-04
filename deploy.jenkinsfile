@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    options {
+        timestamps()
+        retry(1)
+    }
     parameters { string(name: 'ROBERTA_IMAGE_URL', defaultValue: '', description: '') }
 
     stages {

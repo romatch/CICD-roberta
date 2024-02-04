@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    options {
+        timestamps()
+        retry(1)
+    }
     environment {
         DU_NAME = "romkatch"
     }
