@@ -28,10 +28,10 @@ pipeline {
                 }
             }
             post {
-        always{
-           cleanWs()
-        }
-    }
+                always{
+                    cleanWs()
+                }
+            }
         }
         stage('Trigger Deploy') {
             steps {
