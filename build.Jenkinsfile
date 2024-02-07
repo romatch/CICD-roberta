@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Trigger Deploy') {
             steps {
-                build job: 'roberta-deploy', wait: false, parameters: [
+                build job: 'RobertaBuild-deploy', wait: false, parameters: [
                     string(name: 'ROBERTA_IMAGE_URL', value: "$DH_NAME/roberta-cicd:$FULL_VER")
                     ]
                 }
