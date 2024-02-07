@@ -27,6 +27,11 @@ pipeline {
                     sh 'docker image prune -a --force --filter "until=24h"'
                 }
             }
+            post {
+        always{
+           cleanWs()
+        }
+    }
         }
         stage('Trigger Deploy') {
             steps {

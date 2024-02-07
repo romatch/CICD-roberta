@@ -14,5 +14,5 @@ def get_from_cache(key):
 
 def put_in_cache(key, value):
     if len(cache) >= cache_max_size:
-        cache.popitem(last=False)
+        cache.popitem(last=True)
     cache[key] = value
