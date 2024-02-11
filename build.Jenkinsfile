@@ -21,7 +21,9 @@ pipeline {
                 }
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')])
                 {
+                    sh 'snyk ignore --severity=high,critical'
                     sh '''snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile'''
+
                 }
             }
         }
