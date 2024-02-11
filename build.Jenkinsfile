@@ -26,7 +26,6 @@ pipeline {
                     snyk ignore --severity=high,critical
                     snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
                     '''
-
                 }
             }
         }
