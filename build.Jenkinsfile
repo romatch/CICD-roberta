@@ -23,7 +23,6 @@ pipeline {
                 {
                     sh '''
                     snyk auth $SNYK_TOKEN
-                    snyk ignore --severity=high,critical --all
                     snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
                     '''
                 }
