@@ -21,9 +21,7 @@ pipeline {
                 }
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')])
                 {
-                    sh '''
-                    snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
-                    '''
+                    sh '''snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile'''
                 }
             }
         }
